@@ -24,5 +24,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/index', [NotaController::class, 'index'])->name('index.N');
 Route::post('/index_eliminar', [NotaController::class, 'destroy'])->name('destroy.N');
 Route::post('/index_crear', [NotaController::class, 'store'])->name('store.N');
+Route::post('/update_nota', [NotaController::class, 'update'])->name('store.N');
 
 

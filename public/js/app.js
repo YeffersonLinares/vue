@@ -1925,11 +1925,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       notas: [],
-      nota: {}
+      nota: {
+        description: '',
+        date: '',
+        id: 0
+      },
+      index: 0
     };
   },
   created: function created() {
@@ -1963,16 +1969,32 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         var nota = this.nota;
         axios.post(url, nota).then(function (res) {
-          alert("funciono");
+          console.log(res.data);
 
           if (res.data.status == 200) {
-            _this3.notas.push(res.data.notaP);
+            if (res.data.idEdit == 0) {
+              _this3.notas.push(res.data.notaP);
+            } else {
+              _this3.notas[_this3.index] = res.data.notaP;
+              _this3.notas[_this3.index].user_nombre = res.data.user.name;
+            }
 
-            _this3.nota = {};
+            _this3.nota = {
+              description: '',
+              date: '',
+              id: 0
+            };
+            _this3.index = 0;
             alert(res.data.msg);
           } else {}
         });
       }
+    },
+    edit_nota: function edit_nota(nota, index) {
+      this.nota.description = nota.description;
+      this.nota.date = nota.creation_date;
+      this.nota.id = nota.id;
+      this.index = index;
     }
   }
 });
@@ -37691,6 +37713,19 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(i.user_nombre))]),
                 _vm._v(" "),
                 _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      on: {
+                        click: function($event) {
+                          return _vm.edit_nota(i, index)
+                        }
+                      }
+                    },
+                    [_vm._v("Editar")]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nota;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,12 +49,19 @@ class NotaController extends Controller
      */
     public function store(Request $request)
     {
-        $nota = new Nota();
+        $idEdit = 0;
+        if($request->id == 0){
+            $nota = new Nota();
+        }else{
+            $nota = Nota::find($request->id);
+            $idEdit = $nota->id;
+        }
         $nota->description = $request->description;
         $nota->creation_date = $request->date ;
-        $nota->user_id =1 ;
+        $nota->user_id = 1;
+        $user = User::find(1);
         if($nota->save()):
-            return response()->json(['status' => 200, 'msg' => 'Nota creada con éxito', 'notaP' => $nota]);
+            return response()->json(['status' => 200, 'msg' => 'Nota creada con éxito', 'notaP' => $nota, 'idEdit' => $idEdit, 'user' => $user]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal',]);
         endif;
@@ -89,9 +97,9 @@ class NotaController extends Controller
      * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nota $nota)
+    public function update(Request $request)
     {
-        
+        return response()->json(['request' => $request->all()]);
     }
 
     /**

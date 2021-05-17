@@ -39,6 +39,7 @@
               <td>{{ i.creation_date }}</td>
               <td>{{ i.user_nombre }}</td>
               <td>
+                <button @click="edit_nota(i,index)" class="btn btn-warning">Editar</button>
                 <button @click="eliminar_nota(i, index)" class="btn btn-danger">
                   Eliminar
                 </button>
@@ -55,7 +56,8 @@ export default {
   data() {
     return {
       notas: [],
-      nota: {},
+      nota: { description: '', date: '', id: 0, },
+       index: 0
     };
   },
   created() {
@@ -87,15 +89,27 @@ export default {
       } else {
         let nota = this.nota;
         axios.post(url, nota).then((res) => {
-          alert("funciono");
+            console.log(res.data);
           if (res.data.status == 200) {
-            this.notas.push(res.data.notaP);
-            this.nota = {};
+              if(res.data.idEdit == 0){
+                  this.notas.push(res.data.notaP);
+              }else{
+                  this.notas[this.index] = res.data.notaP
+                  this.notas[this.index].user_nombre = res.data.user.name
+              }
+            this.nota = { description: '', date: '', id: 0, }
+            this.index = 0
             alert(res.data.msg);
           } else {
           }
         });
       }
+    },
+    edit_nota(nota, index){
+        this.nota.description = nota.description
+        this.nota.date = nota.creation_date
+        this.nota.id = nota.id
+        this.index = index
     },
   },
 };
