@@ -2,7 +2,10 @@
     <div>
         <template>
             <div>
-                <home />
+                <nota>
+
+                    
+                </nota>
             </div>
         </template>
     </div>

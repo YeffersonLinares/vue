@@ -18,6 +18,7 @@ class CreateNotasTable extends Migration
             $table->string('description',500)->nullable();
             $table->date('creation_date')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->tinyInteger('state')->default(1);
             $table->timestamps();
         });
     }

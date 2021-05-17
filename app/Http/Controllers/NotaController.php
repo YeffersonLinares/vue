@@ -14,7 +14,9 @@ class NotaController extends Controller
      */
     public function index()
     {
-        //
+        $notas = Nota::where('state',1)->get();
+        
+        return $notas;
     }
 
     /**
