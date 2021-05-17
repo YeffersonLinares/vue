@@ -22,5 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/index', [NotaController::class, 'index'])->name('index.N');
+Route::post('/index_eliminar', [NotaController::class, 'destroy'])->name('destroy.N');
 
 

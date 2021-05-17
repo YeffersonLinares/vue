@@ -91,8 +91,15 @@ class NotaController extends Controller
      * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nota $nota)
+    public function destroy(Request $request)
     {
-        //
+        // return response()->json(['nota' => $request->all()]);
+        $nota = Nota::find($request->id);
+        $nota->state = 3;
+        if($nota->save()):
+            return response()->json(['status' => 200, 'msg' => 'Nota eliminada con éxito',]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal',]);
+        endif;
     }
 }

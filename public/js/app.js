@@ -1926,6 +1926,20 @@ __webpack_require__.r(__webpack_exports__);
     axios.get(url).then(function (res) {
       _this.notas = res.data.notas;
     });
+  },
+  methods: {
+    eliminar_nota: function eliminar_nota(nota, index) {
+      var _this2 = this;
+
+      var url = '/index_eliminar';
+      axios.post(url, nota).then(function (res) {
+        if (res.data.status == 200) {
+          _this2.notas.splice(index, 1);
+
+          alert(res.data.msg);
+        } else {}
+      });
+    }
   }
 });
 
@@ -37578,7 +37592,20 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(i.user_nombre))]),
                 _vm._v(" "),
-                _vm._m(2, true)
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.eliminar_nota(i, index)
+                        }
+                      }
+                    },
+                    [_vm._v("Eliminar")]
+                  )
+                ])
               ])
             }),
             0
@@ -37634,14 +37661,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Eliminar")])
     ])
   }
 ]

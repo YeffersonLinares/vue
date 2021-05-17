@@ -28,7 +28,7 @@
               <td>{{ i.creation_date }}</td>
               <td>{{ i.user_nombre }}</td>
               <td>
-                  <button class="btn btn-danger">Eliminar</button>
+                  <button @click="eliminar_nota(i,index)" class="btn btn-danger">Eliminar</button>
               </td>
             </tr>
           </tbody>
@@ -51,5 +51,19 @@ export default {
       this.notas = res.data.notas;
     });
   },
+  methods:{
+      eliminar_nota(nota,index){
+          let url = '/index_eliminar'
+          axios.post(url,nota)
+          .then(res => {
+              if(res.data.status == 200){
+                  this.notas.splice(index,1)
+                  alert(res.data.msg)
+              }else{
+
+              }
+          })
+      }
+  }
 };
 </script>
