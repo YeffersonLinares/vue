@@ -1,5 +1,14 @@
 <template>
     <div>
-        <h1>Prueba</h1>
+        <template>
+            <div>
+                <home />
+            </div>
+        </template>
     </div>
 </template>
+
+<script>
+export default {
+}
+</script>
