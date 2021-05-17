@@ -1912,6 +1912,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1931,7 +1944,7 @@ __webpack_require__.r(__webpack_exports__);
     eliminar_nota: function eliminar_nota(nota, index) {
       var _this2 = this;
 
-      var url = '/index_eliminar';
+      var url = "/index_eliminar";
       axios.post(url, nota).then(function (res) {
         if (res.data.status == 200) {
           _this2.notas.splice(index, 1);
@@ -1939,6 +1952,27 @@ __webpack_require__.r(__webpack_exports__);
           alert(res.data.msg);
         } else {}
       });
+    },
+    crear_nota: function crear_nota() {
+      var _this3 = this;
+
+      var url = "/index_crear";
+
+      if (this.nota.date == "" || this.nota.description == "" || this.nota.date == null || this.nota.description == null) {
+        alert("entre datos");
+      } else {
+        var nota = this.nota;
+        axios.post(url, nota).then(function (res) {
+          alert("funciono");
+
+          if (res.data.status == 200) {
+            _this3.notas.push(res.data.notaP);
+
+            _this3.nota = {};
+            alert(res.data.msg);
+          } else {}
+        });
+      }
     }
   }
 });
@@ -37575,12 +37609,76 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("form", [
+      _c("div", { staticClass: "row container" }, [
+        _c("div", { staticClass: "col-sm-2" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-8" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.nota.date,
+                expression: "nota.date"
+              }
+            ],
+            staticClass: "form-control mb-3",
+            attrs: { type: "date" },
+            domProps: { value: _vm.nota.date },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.nota, "date", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.nota.description,
+                expression: "nota.description"
+              }
+            ],
+            staticClass: "form-control mb-3",
+            attrs: { maxlength: "499" },
+            domProps: { value: _vm.nota.description },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.nota, "description", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-lg",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.crear_nota()
+                }
+              }
+            },
+            [_vm._v("\n          cambio\n        ")]
+          )
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "container mt-5" }, [
       _c("div", { staticClass: "row" }, [
         _c("table", { staticClass: "table" }, [
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "tbody",
@@ -37603,7 +37701,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Eliminar")]
+                    [_vm._v("\n                Eliminar\n              ")]
                   )
                 ])
               ])
@@ -37616,37 +37714,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", [
-      _c("div", { staticClass: "row container" }, [
-        _c("div", { staticClass: "col-sm-2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("input", {
-            staticClass: "form-control mb-3",
-            attrs: { type: "date" }
-          }),
-          _vm._v(" "),
-          _c("textarea", {
-            staticClass: "form-control mb-3",
-            attrs: { maxlength: "499" }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success btn-lg",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("cambio")]
-          )
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

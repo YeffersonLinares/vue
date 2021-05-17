@@ -48,7 +48,16 @@ class NotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nota = new Nota();
+        $nota->description = $request->description;
+        $nota->creation_date = $request->date ;
+        $nota->user_id =1 ;
+        if($nota->save()):
+            return response()->json(['status' => 200, 'msg' => 'Nota creada con éxito', 'notaP' => $nota]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal',]);
+        endif;
+
     }
 
     /**
@@ -82,7 +91,7 @@ class NotaController extends Controller
      */
     public function update(Request $request, Nota $nota)
     {
-        //
+        
     }
 
     /**

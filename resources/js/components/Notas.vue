@@ -4,10 +4,21 @@
       <div class="row container">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <input type="date" class="form-control mb-3" />
+          <input type="date" class="form-control mb-3" v-model="nota.date" />
 
-          <textarea class="form-control mb-3" maxlength="499"> </textarea>
-          <button type="submit" class="btn btn-success btn-lg">cambio</button>
+          <textarea
+            class="form-control mb-3"
+            maxlength="499"
+            v-model="nota.description"
+          >
+          </textarea>
+          <button
+            type="button"
+            class="btn btn-success btn-lg"
+            @click="crear_nota()"
+          >
+            cambio
+          </button>
         </div>
       </div>
     </form>
@@ -23,12 +34,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(i, index) in notas" :key="index" >
+            <tr v-for="(i, index) in notas" :key="index">
               <td>{{ i.description }}</td>
               <td>{{ i.creation_date }}</td>
               <td>{{ i.user_nombre }}</td>
               <td>
-                  <button @click="eliminar_nota(i,index)" class="btn btn-danger">Eliminar</button>
+                <button @click="eliminar_nota(i, index)" class="btn btn-danger">
+                  Eliminar
+                </button>
               </td>
             </tr>
           </tbody>
@@ -51,19 +64,39 @@ export default {
       this.notas = res.data.notas;
     });
   },
-  methods:{
-      eliminar_nota(nota,index){
-          let url = '/index_eliminar'
-          axios.post(url,nota)
-          .then(res => {
-              if(res.data.status == 200){
-                  this.notas.splice(index,1)
-                  alert(res.data.msg)
-              }else{
-
-              }
-          })
+  methods: {
+    eliminar_nota(nota, index) {
+      let url = "/index_eliminar";
+      axios.post(url, nota).then((res) => {
+        if (res.data.status == 200) {
+          this.notas.splice(index, 1);
+          alert(res.data.msg);
+        } else {
+        }
+      });
+    },
+    crear_nota() {
+      let url = "/index_crear";
+      if (
+        this.nota.date == "" ||
+        this.nota.description == "" ||
+        this.nota.date == null ||
+        this.nota.description == null
+      ) {
+        alert("entre datos");
+      } else {
+        let nota = this.nota;
+        axios.post(url, nota).then((res) => {
+          alert("funciono");
+          if (res.data.status == 200) {
+            this.notas.push(res.data.notaP);
+            this.nota = {};
+            alert(res.data.msg);
+          } else {
+          }
+        });
       }
-  }
+    },
+  },
 };
 </script>
