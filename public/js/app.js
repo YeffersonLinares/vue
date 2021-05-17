@@ -1908,6 +1908,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1918,10 +1922,9 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    var url = '/index';
+    var url = "/index";
     axios.get(url).then(function (res) {
-      _this.notas = res.data;
-      console.log(res.data);
+      _this.notas = res.data.notas;
     });
   }
 });
@@ -37573,7 +37576,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(i.creation_date))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(i.user_id))])
+                _c("td", [_vm._v(_vm._s(i.user_nombre))]),
+                _vm._v(" "),
+                _vm._m(2, true)
               ])
             }),
             0
@@ -37625,8 +37630,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Usuario")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Usuario")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Opciones")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Eliminar")])
     ])
   }
 ]

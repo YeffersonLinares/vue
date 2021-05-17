@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotaController extends Controller
 {
@@ -15,8 +16,18 @@ class NotaController extends Controller
     public function index()
     {
         $notas = Nota::where('state',1)->get();
-        
-        return $notas;
+
+
+        $notas = DB::table('users')
+        ->select(
+            'notas.*',
+            'users.name as user_nombre'
+        )
+        ->join('notas','notas.user_id','users.id')
+        ->where('notas.state',1)->get();
+        return response()->json([
+            'notas' => $notas,
+        ]);
     }
 
     /**

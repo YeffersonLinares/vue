@@ -19,13 +19,17 @@
               <th scope="col">Descripción</th>
               <th scope="col">Fecha</th>
               <th scope="col">Usuario</th>
+              <th scope="col">Opciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr :key="index" v-for="(i,index) in notas" >
-              <td>{{i.description}}</td>
-              <td >{{i.creation_date}}</td>
-              <td>{{i.user_id}}</td>
+            <tr v-for="(i, index) in notas" :key="index" >
+              <td>{{ i.description }}</td>
+              <td>{{ i.creation_date }}</td>
+              <td>{{ i.user_nombre }}</td>
+              <td>
+                  <button class="btn btn-danger">Eliminar</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -36,15 +40,16 @@
 <script>
 export default {
   data() {
-    return { notas: [], nota: {} };
+    return {
+      notas: [],
+      nota: {},
+    };
   },
   created() {
-      let url = '/index';
-      axios.get(url).then(res => {  
-           this.notas  = res.data;
-
-          console.log(res.data);
-      });
-  }
+    let url = "/index";
+    axios.get(url).then((res) => {
+      this.notas = res.data.notas;
+    });
+  },
 };
 </script>
